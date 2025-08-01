@@ -1,0 +1,48 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Electron
+dist/
+build/
+*.log
+
+# 临时文件
+temp*/
+backup*/
+*.tmp
+*.temp
+
+# 系统文件
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE文件
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# 启动器专用忽略文件
+# 运行时文件
+*.backup*
+*backup*
+
+# 测试文件
+test_*.py
+test_*.html
+
+# 上传脚本（不需要上传到仓库）
+upload_to_github.bat
+create_release_package.bat

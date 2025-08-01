@@ -1,0 +1,25 @@
+{
+  "timestamp": "2025-07-08T11:30:00.000Z",
+  "soundMap": {
+    "click": "custom/按钮科技音效.WAV",
+    "click-primary": "custom/按钮科技音效.WAV",
+    "hover": "custom/提醒、警告音效.WAV",
+    "input": "custom/按钮科技音效.WAV",
+    "switch": "custom/导航标签点击的声音.WAV",
+    "tab-switch": "custom/导航标签点击的声音.WAV",
+    "success": "custom/任务完成音效.WAV",
+    "complete": "custom/操作成功反馈音效.WAV",
+    "confirm": "custom/导航标签点击的声音.WAV",
+    "warning": "custom/提醒、警告音效.WAV",
+    "error": "custom/提醒、警告音效.WAV",
+    "notification": "custom/提醒、警告音效.WAV",
+    "startup": "custom/启动程序音效.WAV",
+    "startup-success": "custom/任务完成音效.WAV",
+    "shutdown": "custom/关闭comfyui.WAV",
+    "shutdown-success": "custom/comfyui关闭成功的音效.WAV",
+    "app-close": "custom/关闭启动器窗口的音效.WAV",
+    "loading": "custom/按钮科技音效.WAV"
+  },
+  "version": "1.1",
+  "source": "optimized-audio-config"
+}
