@@ -13076,7 +13076,9 @@
                 btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 检查中...';
                 btn.disabled = true;
                 
-                const response = await fetch('/launcher/version-info');
+                // 获取后端URL
+                const backendUrl = await window.electronAPI.getBackendUrl();
+                const response = await fetch(`${backendUrl}/launcher/version-info`);
                 const versionInfo = await response.json();
                 
                 if (versionInfo.error) {
@@ -13160,9 +13162,17 @@
             if (versionElements.length >= 2) {
                 versionElements[0].textContent = `v${versionInfo.current_version}`;
                 
+                // 优先显示GitHub Release发布时间，否则显示本地时间
                 if (versionInfo.published_at) {
-                    const date = new Date(versionInfo.published_at).toLocaleDateString('zh-CN');
-                    versionElements[1].textContent = date;
+                    const date = new Date(versionInfo.published_at);
+                    const formattedDate = date.toLocaleDateString('zh-CN', {
+                        year: 'numeric',
+                        month: '2-digit', 
+                        day: '2-digit'
+                    });
+                    versionElements[1].textContent = formattedDate;
+                } else if (versionInfo.lastModified) {
+                    versionElements[1].textContent = versionInfo.lastModified;
                 }
             }
         }
@@ -13523,7 +13533,9 @@
         // 自动更新启动器版本信息显示
         async function updateLauncherVersionInfo() {
             try {
-                const response = await fetch('/launcher/get-version');
+                // 获取后端URL
+                const backendUrl = await window.electronAPI.getBackendUrl();
+                const response = await fetch(`${backendUrl}/launcher/get-version`);
                 const versionData = await response.json();
                 
                 if (versionData.status === 'success') {
@@ -13564,8 +13576,19 @@
             console.log('showPluginVersions method exists:', !!(launcherInstance && launcherInstance.showPluginVersions));
 
             // 初始化启动器版本信息显示
-            setTimeout(() => {
-                updateLauncherVersionInfo();
+            setTimeout(async () => {
+                await updateLauncherVersionInfo();
+                // 同时获取GitHub Release信息来更新显示
+                try {
+                    const backendUrl = await window.electronAPI.getBackendUrl();
+                    const response = await fetch(`${backendUrl}/launcher/version-info`);
+                    const versionInfo = await response.json();
+                    if (versionInfo.published_at) {
+                        updateVersionDisplay(versionInfo);
+                    }
+                } catch (error) {
+                    console.warn('获取GitHub版本信息失败:', error);
+                }
             }, 1000);
 
             // 添加窗口关闭音效
